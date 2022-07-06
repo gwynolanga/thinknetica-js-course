@@ -13,9 +13,9 @@
 
 
 function checkAccess(user) {
-  if (user['isAdmin'] && (user['age'] >= 18 && user['age'] <= 35)) {
+  if (user['isAdmin'] && user['age'] >= 18 && user['age'] <= 35) {
     return true
-  } else if ((user['age'] >= 18 && user['age'] <= 35) && (user['paid']) && (!user['blocked']) && (!user['badUsername'])) {
+  } else if (user['age'] >= 18 && user['age'] <= 35 && user['paid'] && !user['blocked'] && !user['badUsername']) {
     return true
   } else {
     return false
