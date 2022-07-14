@@ -10,13 +10,7 @@
 const human = Object.create({}, {
 	fullName: {
 		get() {
-			if (!this.firstName) {
-				return this.lastName
-			} else if (!this.lastName) {
-				return this.firstName
-			} else {
-				return `${this.firstName} ${this.lastName}`
-			}
+			return [this.firstName, this.lastName].filter(Boolean).join(' ')
 		},
 		set(value) {
 			[this.firstName, this.lastName] = value.split(' ')
@@ -24,9 +18,10 @@ const human = Object.create({}, {
 	},
 	dateOfBirth: {
 		get() {
-			return new Date(`${new Date().getFullYear() - this.age}`).toLocaleDateString('ru')
+			return this._dateOfBirth
 		},
 		set(value) {
+			this._dateOfBirth = value
 			this.age = new Date().getFullYear() - new Date(value).getFullYear()
 		}
 	}
