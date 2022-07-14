@@ -1,7 +1,7 @@
 // Реализовать функцию для сравнения двух массивов, сравнение должно попарно сравнивать каждый элемент
 
 function eqlTwoArrays(arr1, arr2) {
-	if (arr1.length !== arr2.length) {
+	if (arr1.filter(() => true).length !== arr2.filter(() => true).length) {
 		return false;
 	}
 

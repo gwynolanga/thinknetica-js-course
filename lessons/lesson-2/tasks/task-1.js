@@ -2,7 +2,7 @@
 //  { word: 'smth', length: 4, isCapitalized: false }
 
 function wordStatistics(text) {
-  return text.replace(/[^a-zA-Z\s]/g, '').split(' ').map((word) => (
-    { word: word, length: word.length, isCapitalized: word.charCodeAt(0) >= 65 && word.charCodeAt(0) <= 90 }
+  return text.replace(/[^а-яА-Я\w\s]|\s\W$/g, '').split(/[\s\r\n\t]+/).map((word) => (
+    { word: word, length: word.length, isCapitalized: word[0] === word[0].toUpperCase() }
   ));
 }

@@ -11,14 +11,14 @@
  */
 
 function avgSalary(employees) {
-	let amount = employees.reduce((acc, employee) => (acc + employee['salary']), 0);
+	let amount = employees.reduce((acc, employee) => (acc + employee.salary), 0);
 	return amount / employees.length;
 }
 
 function sortBySalary(employees) {
-	return employees.sort((employee1, employee2) => (employee1['salary'] - employee2['salary']));
+	return employees.sort((employee1, employee2) => (employee1.salary - employee2.salary));
 }
 
 function filterEmployees(employees) {
-	return employees.filter((employee) => (employee['salary'] > 4500 && employee['age'] > 25));
+	return employees.filter((employee) => (employee.salary > 4500 && employee.age > 25));
 }

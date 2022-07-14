@@ -10,15 +10,24 @@
 const human = Object.create({}, {
 	fullName: {
 		get() {
-			return `${this.firstName} ${this.lastName}`
+			if (!this.firstName) {
+				return this.lastName
+			} else if (!this.lastName) {
+				return this.firstName
+			} else {
+				return `${this.firstName} ${this.lastName}`
+			}
 		},
 		set(value) {
 			[this.firstName, this.lastName] = value.split(' ')
 		}
 	},
 	dateOfBirth: {
+		get() {
+			return new Date(`${new Date().getFullYear() - this.age}`).toLocaleDateString('ru')
+		},
 		set(value) {
-			this.age = (new Date()).getFullYear() - value
+			this.age = new Date().getFullYear() - new Date(value).getFullYear()
 		}
 	}
 });
