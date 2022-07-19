@@ -29,17 +29,18 @@ const TicketWindow = function() {
 	this.buyTicket = (ticketName) => {
 		let price = availableTickets[ticketName]
 		if (price) {
-			let ticketId = Math.floor(Math.random() * 900000) + 1
+			let ticketId = Math.floor(Math.random() * 900000) + 100000
 			cash += price
 			soldTickets[ticketId] = ticketName
 			return ticketId
 		}
 	}
 	this.returnTicket = (ticketId) => {
-		let ticketName = soldTickets[parseInt(ticketId)]
+		let id = parseInt(ticketId)
+		let ticketName = soldTickets[id]
 		if (ticketName) {
 			cash -= availableTickets[ticketName]
-			delete soldTickets[parseInt(ticketId)]
+			delete soldTickets[id]
 			return availableTickets[ticketName]
 		}
 	}

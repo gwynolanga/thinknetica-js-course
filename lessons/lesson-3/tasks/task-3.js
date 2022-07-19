@@ -29,7 +29,7 @@ const Calc = function() {
 		history = []
 	}
 	this.operation = (expression) => {
-		let operands = expression.match(/-?\d+/g).map((item) => parseFloat(item))
+		let operands = expression.match(/-?(?:\d+\.)?\d+/g).map((item) => parseFloat(item))
 		let operation = expression.replace(/\s*-?\d+\s*/g, '')
 		let func = operations[operation]
 

@@ -15,16 +15,16 @@
  */
 
 const cache = () => {
-	let historicalCalculations = [];
+	let historicalCalculations = {};
 
 	return (number, degree) => {
-		let calculation = historicalCalculations.find((calc) => calc.number === number && calc.degree === degree)
-		if (calculation) {
-			return { value: calculation.value, fromCache: true }
+		let result = historicalCalculations[number + '_' + degree]
+		if (result) {
+			return { value: result, fromCache: true }
 		} else {
-			let value = Math.pow(number, degree)
-			historicalCalculations.push({ number: number, degree: degree, value: value })
-			return { value: value, fromCache: false }
+			result = Math.pow(number, degree)
+			historicalCalculations[number + '_' + degree] = result
+			return { value: result, fromCache: false }
 		}
 	}
 }
