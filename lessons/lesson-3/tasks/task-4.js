@@ -16,42 +16,31 @@
  */
 
 const TicketWindow = function() {
-	let ticketId = 0
-	let amount = 0
-	let availableTickets = []
-	let soldTickets = []
+	let cash = 0
+	let availableTickets = {}
+	let soldTickets = {}
 
-	this.amount = () => amount
-	this.availableTickets = () => {
-		return availableTickets.map((availableTicket) => ({ name: availableTicket.name, price: availableTicket.price }))
-	}
-	this.soldTickets = () => {
-		return soldTickets.map((soldTicket) => {
-			return { id: soldTicket.id, ticket: { name: soldTicket.ticket.name, price: soldTicket.ticket.price } }
-		})
-	}
-	this.createEvent = (name, price) => {
-		let availableTicket = availableTickets.find((ticket) => ticket.name === name)
-		if (availableTicket) {
-			availableTicket.price = price
-		} else {
-			availableTickets.push({ name: name, price: price })
-		}
+	this.cash = () => cash
+	this.availableTickets = () => Object.assign({}, availableTickets)
+	this.soldTickets = () => Object.assign({}, soldTickets)
+	this.createEvent = (ticketName, price) => {
+		availableTickets[ticketName] = price
 	}
 	this.buyTicket = (ticketName) => {
-		let availableTicket = availableTickets.find((ticket) => ticket.name === ticketName)
-		if (availableTicket) {
-			ticketId++
-			amount += availableTicket.price
-			soldTickets.push({ id: ticketId, ticket: availableTicket })
+		let price = availableTickets[ticketName]
+		if (price) {
+			let ticketId = Math.floor(Math.random() * 900000) + 1
+			cash += price
+			soldTickets[ticketId] = ticketName
 			return ticketId
 		}
 	}
 	this.returnTicket = (ticketId) => {
-		let soldTicket = soldTickets.find((ticket) => ticket.id === parseInt(ticketId))
-		if (soldTicket) {
-			amount -= soldTicket.ticket.price
-			soldTickets = soldTickets.filter((ticket) => ticket.id !== parseInt(ticketId))
+		let ticketName = soldTickets[parseInt(ticketId)]
+		if (ticketName) {
+			cash -= availableTickets[ticketName]
+			delete soldTickets[parseInt(ticketId)]
+			return availableTickets[ticketName]
 		}
 	}
 }

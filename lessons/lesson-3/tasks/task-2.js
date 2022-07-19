@@ -15,16 +15,16 @@
  */
 
 const cache = () => {
-	let number, degree, fromCache;
-	return (x, y) => {
-		if (number !== x || degree !== y) {
-			number = x
-			degree = y
-			fromCache = false
-		} else {
-			fromCache = true
-		}
+	let historicalCalculations = [];
 
-		return { value: Math.pow(number, degree), fromCache: fromCache }
+	return (number, degree) => {
+		let calculation = historicalCalculations.find((calc) => calc.number === number && calc.degree === degree)
+		if (calculation) {
+			return { value: calculation.value, fromCache: true }
+		} else {
+			let value = Math.pow(number, degree)
+			historicalCalculations.push({ number: number, degree: degree, value: value })
+			return { value: value, fromCache: false }
+		}
 	}
 }

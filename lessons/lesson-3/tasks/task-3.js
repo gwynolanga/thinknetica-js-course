@@ -21,25 +21,22 @@
  */
 
 const Calc = function() {
-	let operations = []
-	let methods = [
-		{ name: '+', func: (x, y) => x + y },
-		{ name: '-', func: (x, y) => x - y }
-	]
+	let history = []
+	let operations = { '+': (x, y) => x + y, '-': (x, y) => x - y }
 
-	this.history = () => operations
+	this.history = () => history.map((item) => (Object.assign({}, item)))
 	this.clearHistory = () => {
-		operations = []
+		history = []
 	}
 	this.operation = (expression) => {
-		let operands = expression.match(/\d+/g).map((item) => parseFloat(item))
-		let method_name = expression.replace(/[\d\s]+/g, '')
-		let method = methods.find((method) => (method.name === method_name))
+		let operands = expression.match(/-?\d+/g).map((item) => parseFloat(item))
+		let operation = expression.replace(/\s*-?\d+\s*/g, '')
+		let func = operations[operation]
 
-		operations.push({ operation: method_name, operands: operands })
-		return method ? method.func(...operands) :  NaN
+		history.push({ operation: operation, operands: operands })
+		return func ? func(...operands) : NaN
 	}
 	this.addOperation = (name, func) => {
-		methods.push({ name: name, func: func })
+		operations[name] = func
 	}
 }
