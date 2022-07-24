@@ -22,65 +22,63 @@
  * Верфи и корабли должны создаваться с помощью функций-конструкторов.
  */
 
-const Shipyard = function(shipyard) {
-	this.type = shipyard.type
+const Shipyard = function(shipType) {
+	let shipTypes = [Ship, MotorShip, SailingShip]
+	let isValidShipType = (shipType) => (shipTypes.includes(shipType))
 
-	this.build = (ship) => {
-		if (this.type === 'MotorShipyard' && ship.type === 'MotorShip') {
-			return new MotorShip(ship)
-		} else if (this.type === 'SailingShipyard'  && ship.type === 'SailingShip') {
-			return new SailingShip(ship)
+	this.buildShip = (params) => {
+		if (isValidShipType(shipType)) {
+			return new shipType(params)
 		}
 	}
-	this.repair = (ship) => {
-		if (this.type === 'MotorShipYard' || this.type === 'SailingShipShipYard') {
+	this.repairShip = (ship) => {
+		if (ship && isValidShipType(ship.constructor)) {
 			ship.lastRepairAt = new Date()
 		}
 	}
-	this.recolor = (ship, color) => {
-		ship.color = color
+	this.recolorShip = (ship, color) => {
+		if (ship && isValidShipType(ship.constructor)) {
+			ship.color = color
+		}
 	}
-	this.exchange = (oldShip, newShip) => {
-		if (this.type === 'MotorShipyard' && oldShip.type === newShip.type) {
-			return new MotorShip(newShip)
-		} else if (this.type === 'SailingShipyard' && oldShip.type === newShip.type) {
-			return new SailingShip(newShip)
+	this.exchangeShip = (ship, params) => {
+		if (ship && isValidShipType(ship.constructor)) {
+			return this.buildShip(params)
 		}
 	}
 }
 
-const MotorShipyard = function(motorShipyard) {
-	Object.setPrototypeOf(this, new Shipyard(motorShipyard))
+const MotorShipyard = function() {
+	Shipyard.call(this, MotorShip)
+}
+const SailingShipyard = function() {
+	Shipyard.call(this, SailingShip)
 }
 
-const SailingShipyard = function(sailingShipyard) {
-	Object.setPrototypeOf(this, new Shipyard(sailingShipyard))
-}
-
-const Ship = function(ship) {
-	this.name = ship.name
-	this.type = ship.type
-	this.color = ship.color
+const Ship = function(params) {
+	this.name = params.name
+	this.color = params.color
 	this.lastRepairAt = new Date()
 }
 
-const MotorShip = function(ship) {
-	Object.setPrototypeOf(this, new Ship(ship))
-	this.enginePower = ship.enginePower
-	this.bodyMaterial = ship.bodyMaterial
+const MotorShip = function(params) {
+	Ship.call(this, params)
+	this.enginePower = params.enginePower
+	this.bodyMaterial = params.bodyMaterial
 }
 
-const SailingShip = function(ship) {
-	Object.setPrototypeOf(this, new Ship(ship))
-	this.mastCount = ship.mastCount
-	this.sailArea = ship.sailArea
+const SailingShip = function(params) {
+	Ship.call(this, params)
+	this.mastCount = params.mastCount
+	this.sailArea = params.sailArea
 }
 
+Object.setPrototypeOf(MotorShipyard.prototype, Shipyard.prototype)
+Object.setPrototypeOf(SailingShipyard.prototype, Shipyard.prototype)
+Object.setPrototypeOf(MotorShip.prototype, Ship.prototype)
+Object.setPrototypeOf(SailingShip.prototype, Ship.prototype)
 
-motoShipyard = { type: 'MotorShipyard' }
-sailingShipyard = { type: 'SailingShipyard' }
-
-motoShip1 = { name: 'Moto1', type: 'MotorShip', color: 'Yellow', enginePower: 50, bodyMaterial: 'Titan' }
-motoShip2 = { name: 'Moto2', type: 'MotorShip', color: 'Red', enginePower: 10, bodyMaterial: 'Iron' }
-sailingShip1 = { name: 'Sail1', type: 'SailingShip', color: 'Blue', mastCount: 5, sailArea: 10 }
-sailingShip2 = { name: 'Sail2', type: 'SailingShip', color: 'Orange', mastCount: 15, sailArea: 30 }
+motorShip1 = { name: 'Moto1', color: 'Yellow', enginePower: 50, bodyMaterial: 'Titan' }
+motorShip2 = { name: 'Moto2', color: 'Red', enginePower: 10, bodyMaterial: 'Iron' }
+sailingShip1 = { name: 'Sail1', color: 'Blue', mastCount: 5, sailArea: 10 }
+sailingShip2 = { name: 'Sail2', color: 'Orange', mastCount: 15, sailArea: 30 }
