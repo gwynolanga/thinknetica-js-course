@@ -22,28 +22,24 @@
  * Верфи и корабли должны создаваться с помощью функций-конструкторов.
  */
 
-const Shipyard = function() {
+const Shipyard = function(shipType) {
 	this.buildShip = (params) => {
-		if (this instanceof MotorShipyard) {
-			return new MotorShip(params)
-		} else if (this instanceof SailingShipyard) {
-			return new SailingShip(params)
-		} else {
-			return new Ship(params)
+		if (typeof shipType === 'function') {
+			return new shipType(params)
 		}
 	}
 	this.repairShip = (ship) => {
-		if (ship instanceof Ship) {
+		if (ship instanceof shipType) {
 			ship.lastRepairAt = new Date()
 		}
 	}
 	this.recolorShip = (ship, color) => {
-		if (ship instanceof Ship) {
+		if (ship instanceof shipType) {
 			ship.color = color
 		}
 	}
 	this.exchangeShip = (ship, params) => {
-		if (ship instanceof Ship) {
+		if (ship instanceof shipType) {
 			this.buildShip(params)
 		}
 	}
