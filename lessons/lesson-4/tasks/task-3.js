@@ -35,7 +35,7 @@ const Human = function(human) {
 }
 
 const Employee = function(employee) {
-	Object.setPrototypeOf(this, new Human(employee))
+	Human.call(this, employee)
 	this.position = employee.position
 	this.baseSalary = employee.baseSalary
 	this.salaryCurrency = employee.salaryCurrency
@@ -44,7 +44,7 @@ const Employee = function(employee) {
 }
 
 const CurrentEmployee = function(currentEmployee) {
-	Object.setPrototypeOf(this, new Employee(currentEmployee))
+	Employee.call(this, currentEmployee)
 	this.startDate = currentEmployee.startDate
 	this.writeReport = () => (console.log('Writing a report'))
 	this.organizeMeeting = () => (console.log('Organizing a meeting'))
@@ -53,6 +53,10 @@ const CurrentEmployee = function(currentEmployee) {
 }
 
 const FormerEmployee = function(formerEmployee) {
-	Object.setPrototypeOf(this, new Employee(formerEmployee))
+	Employee.call(this, formerEmployee)
 	this.endDate = formerEmployee.endDate
 }
+
+Object.setPrototypeOf(Employee.prototype, Human.prototype)
+Object.setPrototypeOf(CurrentEmployee.prototype, Employee.prototype)
+Object.setPrototypeOf(FormerEmployee.prototype, Employee.prototype)

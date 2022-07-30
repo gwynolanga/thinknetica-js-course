@@ -11,5 +11,7 @@ const Rectangle = function(width, height) {
 }
 
 const Square = function(size) {
-	Object.setPrototypeOf(this, new Rectangle(size, size))
+	Rectangle.call(this, size, size)
 }
+
+Object.setPrototypeOf(Square.prototype, Rectangle.prototype)
