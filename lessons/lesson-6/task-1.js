@@ -9,33 +9,33 @@
  *
  * Пример:
  * HTML
- * <div id=”item1”>
- *   <h3 data-field=”title”>Some title</h3>
- *   <p data-field=”description”></p>
+ * <div id="item1">
+ *   <h3 data-field="title">Some title</h3>
+ *   <p data-field="description"></p>
  * </div>
  *
  * JS
  * parseTemplate(
- *   document.getElementById(‘item1’),
+ *   document.getElementById('item1'),
  *   {
- *     title: ‘Hello world’,
- *     description: ‘The first program’,
+ *     title: 'Hello world',
+ *     description: 'The first program',
  *   }
  * );
  *
  * HTML должен измениться на:
- * <div id=”item1”>
- *   <h3 data-field=”title”>Hello world</h3>
- *   <p data-field=”description”>The first program</p>
+ * <div id="item1">
+ *   <h3 data-field="title">Hello world</h3>
+ *   <p data-field="description">The first program</p>
  * </div>
  */
 
+// https://stackoverflow.com/questions/15094886/why-is-foreach-not-working-for-children
 function parseTemplate(element, data) {
-	element.children.forEach((child) => {
+	Array.from(element.children).forEach((child) => {
 		let key = child.dataset['field']
-		let value = data[key]
-		if (value) {
-			child.textContent = value
+		if (key) {
+			child.textContent = data[key]
 		} else {
 			throw `Не найдено свойство ${key}!`
 		}

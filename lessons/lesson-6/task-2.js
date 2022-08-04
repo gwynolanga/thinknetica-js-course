@@ -18,17 +18,18 @@
  * </ul>
  */
 
+// https://stackoverflow.com/questions/203739/why-does-instanceof-return-false-for-some-literals
 function createNestedList(items) {
 	if (items instanceof Array) {
 		let ul = document.createElement('ul')
 
 		items.forEach((item) => {
-			if (item.constructor === String) {
+			if (item instanceof Array) {
+				ul.append(createNestedList(item))
+			} else {
 				let li = document.createElement('li')
 				li.textContent = item
 				ul.append(li)
-			} else {
-				ul.append(createNestedList(item))
 			}
 		})
 
