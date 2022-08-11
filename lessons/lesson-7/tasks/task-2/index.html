@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="dark light" name="color-scheme">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css">
+  <title>Задание 2</title>
+</head>
+<body>
+  <h2>Урок 7 / Задание 2</h2>
+  <h4>Реализовать калькулятор</h4>
+  <p>Должна поддерживаться следующая функциональность:</p>
+  <ol>
+    <li>По нажатию на <b>Backspace</b> символы в поле ввода должны стираться по одному</li>
+    <li>По нажатии на <b>Enter</b> &mdash; срабатывать действие <b>&equals;</b></li>
+    <li>Должны поддерживаться базовые арифметические операции: <b>&plus;, &mdash;, &times;, &divide;</b></li>
+    <li>Добавлять свои нестандартные операции и отображать кнопки для этих операций на экране</li>
+  </ol>
+  <h4>Результат задания</h4>
+  <div class="grid-container calculator">
+    <span class="calculator-display">0</span>
+    <div class="calculator-buttons">
+      <span class="calculator-item operator" data-button-type="operator" data-method="add">&plus;</span>
+      <span class="calculator-item operator" data-button-type="operator" data-method="subtract">&mdash;</span>
+      <span class="calculator-item operator" data-button-type="operator" data-method="multiply">&times;</span>
+      <span class="calculator-item operator" data-button-type="operator" data-method="divide">&divide;</span>
+      <span class="calculator-item number" data-button-type="number">7</span>
+      <span class="calculator-item number" data-button-type="number">8</span>
+      <span class="calculator-item number" data-button-type="number">9</span>
+      <span class="calculator-item equal" data-button-type="equal">&equals;</span>
+      <span class="calculator-item number" data-button-type="number">4</span>
+      <span class="calculator-item number" data-button-type="number">5</span>
+      <span class="calculator-item number" data-button-type="number">6</span>
+      <span class="calculator-item number" data-button-type="number">1</span>
+      <span class="calculator-item number" data-button-type="number">2</span>
+      <span class="calculator-item number" data-button-type="number">3</span>
+      <span class="calculator-item number" data-button-type="number">0</span>
+      <span class="calculator-item decimal" data-button-type="decimal">&period;</span>
+      <span class="calculator-item cleaning" data-button-type="cleaning">AC</span>
+    </div>
+  </div>
+  <div class="grid-container additional-operators-container">
+    <strong>Новые операторы</strong>
+    <div class="grid-container additional-operators additional-buttons"></div>
+  </div>
+  <div class="grid-container new-operator-container">
+    <strong>Добваление оператора</strong>
+    <form class="grid-container form-operator">
+      <label>Название:</label>
+      <input name="operator-name" type="text" required />
+      <label>Первый аргумент:</label>
+      <input type="text" name="operator-first-argument" required />
+      <label>Второй аргумент:</label>
+      <input type="text" name="operator-second-argument" required />
+      <label>Математическое действие (на JS):</label>
+      <textarea name="operator-action" type="text" required rows="5"></textarea>
+      <button type="submit">Добавить</button>
+    </form>
+  </div>
+  <h5><a href="../../../../index.html">На главную</a></h5>
+</body>
+<script src="main.js"></script>
+</html>
