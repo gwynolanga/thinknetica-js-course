@@ -25,6 +25,14 @@ class CustomPromise {
 	}
 
 	static resolve(value) {
+		if (value instanceof CustomPromise) {
+			return new CustomPromise(resolve => resolve(value.#result))
+		}
+
+		if (typeof value.then === 'function') {
+			return new CustomPromise(value.then)
+		}
+
 		return new CustomPromise((resolve) => { resolve(value) })
 	}
 
