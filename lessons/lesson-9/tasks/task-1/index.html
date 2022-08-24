@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="dark light" name="color-scheme">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css">
+  <title>Задание 1</title>
+</head>
+<body>
+  <h2>Урок 9 / Задание 1</h2>
+  <h4>Сделайте интерфейс для поиска и отображения gif с помощью <a href="https://developers.giphy.com/docs/api/">giphy api</a></h4>
+  <p>
+    <b>Важно:</b> Для работы с API понадобится ключ для авторизации, инструкция по его получению находится
+    <a href="https://support.giphy.com/hc/en-us/articles/360020283431-Request-A-GIPHY-API-Key">тут</a>
+  </p>
+  <p>Функциональные требования:</p>
+  <ol>
+    <li>Доступно поле ввода в которое можно вводить поисковый запрос</li>
+    <li>Поиск осуществляется по мере набора текста в поле</li>
+    <li>Запрос на бэкенд отправляется не чаще, чем раз в 500 мс</li>
+    <li>Верстка может быть любой</li>
+  </ol>
+  <p>Технические требования:</p>
+  <ol>
+    <li>Функция для поиска переиспользуемая, ее должно быть легко использовать в другом месте</li>
+    <li>Можно использовать fetch или XHR</li>
+    <li>Решение должно использовать промисы или async/await</li>
+    <li>
+      Реализуйте простой кэш на стороне клиента. Он будет проверять есть ли у нас результат для введенного запроса
+      и возвращать его из кэша, время жизни для записей ограничивать не нужно
+    </li>
+  </ol>
+  <h4>Результат задания</h4>
+  <div class="search-block">
+    <label for="search">Поиск gif картинок:</label>
+    <input name="search" type="text" id="search" autofocus>
+  </div>
+  <div class="results"></div>
+  <h5><a href="../../../../index.html">На главную</a></h5>
+</body>
+<script src="main.js"></script>
+</html>
